@@ -1,0 +1,45 @@
+.icon{
+  cursor: pointer;
+}
+
+.block{
+  display: flex;
+  border: 2px solid black;
+}
+
+.item{
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+  
+
+}
+
+
+body{
+  background-color: rgb(159, 188, 178);
+}
+
+.nav1{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  /* border: 2px solid red ; */
+  width: 250px ;
+  text-align: center;
+  align-items: center;
+  position: relative;
+  top: -3px ;
+  text-decoration: underline;
+  font-size: 17px ;
+
+}
+
+
+.cardclass{
+  margin: auto;
+  /* border: 1px solid black ; */
+  display: flex;
+  justify-content: center ;
+  flex-wrap: wrap;
+}
