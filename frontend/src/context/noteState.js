@@ -3,7 +3,7 @@ import { useState } from "react";
 const NoteState = (props) => {
 
     const [newnotes , setNotes] = useState([])
-
+    const [userData , setuserData] = useState({}) 
 
     const getNote = async () => {
         const response = await fetch(`${process.env.REACT_APP_BASE_URL}note/getnotes` , {
@@ -109,11 +109,24 @@ const NoteState = (props) => {
 
     }
 
-    
+
+
+    const data = async () => {
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}auth/getuser`, {
+          "method": "GET",
+          headers: {
+            'Content-Type': 'application/json',
+            'token': localStorage.getItem('token'),
+          }
+        });
+        let resp = await response.json();
+        // console.log(resp);
+        setuserData(resp);
+      }
 
     return (
         // <NoteContext.Provider value={{ s1, notes, addNote, deleteNote, editNote , getNotes }}>
-        <NoteContext.Provider value={{ newnotes  , getNote , editNote  , addNote , deleteNote }}>
+        <NoteContext.Provider value={{ newnotes  , getNote , editNote  , addNote , deleteNote , data ,  userData}}>
             {props.children}
         </NoteContext.Provider>
     )

@@ -13,10 +13,10 @@ function App() {
   return (
     <>
 
-        <Router>
-          {/* <Myfile /> */}
-      <NoteState>
-            <Navbar />
+      <Router>
+        {/* <Myfile /> */}
+        <NoteState>
+          <Navbar />
           <Routes>
             <Route exact path='/Login' Component={Login}  ></Route>
             <Route exact path='/' Component={Login}  ></Route>
@@ -24,8 +24,8 @@ function App() {
             <Route exact path='/Getuser' Component={Getuser}   ></Route>
             <Route exact path='/Mynotes' Component={Notes}   ></Route>
           </Routes>
-      </NoteState>
-        </Router>
+        </NoteState>
+      </Router>
     </>
   );
 }
