@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import Swal from "sweetalert2";
 // import { signup } from '../../../backend/controllers/auth';
+import Loader from "react-js-loader";
 
 const Signup = () => {
     let navigate = useNavigate();
@@ -13,6 +14,7 @@ const Signup = () => {
 
     
     const handleclick = async (event) => {
+        setLoading(true) ; 
         // console.log(data) ; 
         event.preventDefault();
 
@@ -31,6 +33,7 @@ const Signup = () => {
         if (json.success) {
             // alert("signup Success");
             // navigate("/Login");
+            setLoading(false); 
             Swal.fire({
                 title: "Good Job !",
                 text: "You are Registered Successfully..",
@@ -45,9 +48,10 @@ const Signup = () => {
         }
 
         else {
+            setLoading(false); 
             Swal.fire({
                 title: "Some Error Occurred !",
-                text: "Minimum length of name and password is 2",
+                text: "Some User With This Email Already Registered",
                 icon: "warning",
                 // confirmButtonText: "Try Again",
               });
@@ -81,7 +85,7 @@ const Signup = () => {
         console.log(files.length);
         const base64 = await convertBase64(files[0]);
         // uploadSingleImage(base64);
-        console.log(base64) ; 
+        // console.log(base64) ; 
         // setbase64(String(base64)) ; 
         signupdata({...data , image : base64}) ; 
         return;
@@ -89,8 +93,19 @@ const Signup = () => {
 
 
     return (
+        
         <div>
-            <form onSubmit={handleclick} className='container my-5'>
+
+
+            {
+                loading ? 
+                <div className="loading" style={{height : "100vh" , display : "flex" , justifyContent : "center" , alignItems : "center" , textAlign : "center"}}>
+                  <Loader type="box-rectangular" bgColor={"#343a40"} title={"Just a Moment Please..."} color={'#343a40'} size={40} />
+                </div>
+
+                :
+
+                <form onSubmit={handleclick} className='container my-5'>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>
                     <input type="name" name='name' value={data.name} onChange={handlechange} className="form-control" aria-describedby="emailHelp" />
@@ -112,6 +127,11 @@ const Signup = () => {
 
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
+
+                
+            }
+            
+            
         </div>
     )
 }

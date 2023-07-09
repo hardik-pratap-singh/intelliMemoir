@@ -3,10 +3,13 @@ import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
+import Loader from "react-js-loader";
 
 const Login = () => {
 
     // const context = useContext(NoteContext)  ; 
+    const [loading, setLoading] = useState(false);
+
     const [login , logindata] = useState({email : "" , password : ""});
     let navigate = useNavigate() ; 
     const handlechange = (e) => {
@@ -15,6 +18,7 @@ const Login = () => {
 
 
     const handlesubmit = async (event) => {
+        setLoading(true); 
         event.preventDefault() ;  //ye bhi kaafi zaroori cheez hai bhai // isko bhool gye to kaafi faltu ki errors aa sakti 
         //hai like url me teri personal cheeze show hone lag sakti hai , email , password type cheeze 
 
@@ -30,6 +34,7 @@ const Login = () => {
 
         const json = await response.json()  ;
         if(json.success === true){
+            setLoading(false); 
             localStorage.setItem('token' , json.authToken);
             // navigate('/Mynotes')
             Swal.fire({
@@ -49,6 +54,8 @@ const Login = () => {
         }
         else if(json.issue === "email"){
             // alert("Email Doesn't Exist. Try Signing Up !")
+            setLoading(false); 
+
             Swal.fire({
                 title: "Login Failed !",
                 text: "Incorrect Email..",
@@ -59,6 +66,8 @@ const Login = () => {
 
         else{
             // alert("Password Didn't Match. Try Again !")
+            setLoading(false); 
+
             Swal.fire({
                 title: "Login Failed !",
                 text: "Password Didn't Match..",
@@ -70,7 +79,16 @@ const Login = () => {
     
     return (
         <div>
-            <form onSubmit = {handlesubmit} className='container my-5'>
+
+            {
+                loading ? 
+                <div className="loading" style={{height : "100vh" , display : "flex" , justifyContent : "center" , alignItems : "center" , textAlign : "center"}}>
+                  <Loader type="box-rectangular" bgColor={"#343a40"} title={"Just a Moment Please..."} color={'#343a40'} size={40} />
+                </div>
+
+                :
+
+                <form onSubmit = {handlesubmit} className='container my-5'>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>
                     <input type="email" name = "email" value = {login.email} onChange = {handlechange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
@@ -83,6 +101,10 @@ const Login = () => {
                 
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
+            
+
+
+            }
             
             
         </div>
