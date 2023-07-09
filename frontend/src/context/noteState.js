@@ -124,9 +124,30 @@ const NoteState = (props) => {
         setuserData(resp);
       }
 
+
+      const updateUserData = async (name , email) => {
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}auth/updateuser` , {
+            method : "PUT" , 
+            headers: {
+                "Content-Type" : "application/json" , 
+                "token" : localStorage.getItem('token')
+            },
+            body : JSON.stringify({name , email})
+        })
+
+        const json = await response.json() ; 
+        const user = json.user ; 
+
+
+        console.log(user) ; 
+ 
+        setuserData(json) ; 
+      }
+
+
     return (
         // <NoteContext.Provider value={{ s1, notes, addNote, deleteNote, editNote , getNotes }}>
-        <NoteContext.Provider value={{ newnotes  , getNote , editNote  , addNote , deleteNote , data ,  userData}}>
+        <NoteContext.Provider value={{ newnotes  , getNote , editNote  , addNote , deleteNote , data ,  updateUserData , userData , setuserData}}>
             {props.children}
         </NoteContext.Provider>
     )

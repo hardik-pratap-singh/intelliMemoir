@@ -15,9 +15,11 @@ const Notes = () => {
 
 	const ref = useRef(null);
 	const refclose = useRef(null);
+
+	
 	useEffect(() => {
 		getNote();
-	}, [])
+	}, []) // eslint-disable-line
 
 
 	const updateNote = (currentNote) => {
@@ -88,11 +90,11 @@ const Notes = () => {
 
 			<div className="container">
 
-				<h3><center><b>    Your Notes		</b></center>
+				<h3><center><b>Your Notes</b></center>
 					</h3><br />
 
 				<div className="container row mx-1">
-					{newnotes.length === 0 && "No Notes To Display"}
+					{newnotes.length === 0 && <h5 style={{textAlign: "center"}}>No Notes To Display</h5>}
 				</div>
 
 				<div className="container row row-md-2 cardclass">

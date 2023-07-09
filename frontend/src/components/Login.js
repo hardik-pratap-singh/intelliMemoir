@@ -2,6 +2,7 @@ import React from 'react'
 // import noteContext from '../context/noteContext'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2";
 
 const Login = () => {
 
@@ -26,18 +27,44 @@ const Login = () => {
         })
 
 
+
         const json = await response.json()  ;
         if(json.success === true){
             localStorage.setItem('token' , json.authToken);
-            navigate('/Mynotes')
-            alert("Succesfully loggedIn");     
+            // navigate('/Mynotes')
+            Swal.fire({
+                title: "Good Job !",
+                text: "Successfully Logged In !!",
+                icon: "success",
+                // confirmButtonText: "Try Again",
+              }).then(function () {
+                // Redirect the user
+                // window.location.href = "/new-page";
+                navigate("/Mynotes") ;
+              });
+            // alert("Succesfully loggedIn");   
+            
+            
+
         }
         else if(json.issue === "email"){
-            alert("Email Doesn't Exist. Try Signing Up !")
+            // alert("Email Doesn't Exist. Try Signing Up !")
+            Swal.fire({
+                title: "Login Failed !",
+                text: "Incorrect Email..",
+                icon: "error",
+                confirmButtonText: "Try Again",
+              });
         }
 
         else{
-            alert("Password Didn't Match. Try Again !")
+            // alert("Password Didn't Match. Try Again !")
+            Swal.fire({
+                title: "Login Failed !",
+                text: "Password Didn't Match..",
+                icon: "error",
+                confirmButtonText: "Try Again",
+              });
         }
     }
     
@@ -56,6 +83,8 @@ const Login = () => {
                 
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
+            
+            
         </div>
     )
 }

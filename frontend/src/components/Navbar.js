@@ -31,9 +31,9 @@ const Navbar = () => {
                                 <Link className="nav-link active" aria-current="page" to="/Mynotes">My Notes</Link>
                             </li>
                         </ul>
-                        // <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        // <li class="nav-item">
-                        //   <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        // <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        // <li className="nav-item">
+                        //   <a className="nav-link active" aria-current="page" href="#">Home</a>
                         // </li>
                         // </ul>
 
@@ -45,9 +45,9 @@ const Navbar = () => {
                     {
                         localStorage.getItem('token') ?
                             // <button type="submit" onClick={handlelogout} className="btn btn-info mx-2">Logout</button>
-                            <form class="d-flex" role="search">
+                            <form className="d-flex" role="search">
                     
-                                    <Link className="nav-link active" aria-current="page" to="/Getuser"><img src={userData.image} alt="profile" width="30" height="24" /></Link>
+                                    <Link className="nav-link active" aria-current="page" to="/Getuser"><img src={userData.image} alt="profile" width="40px" height="40px" style={{borderRadius : "50%" , marginRight : "10px"}}  /></Link>
                        
                             </form>
                             

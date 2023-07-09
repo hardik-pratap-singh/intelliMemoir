@@ -2,12 +2,12 @@ import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import Swal from "sweetalert2";
 // import { signup } from '../../../backend/controllers/auth';
 
 const Signup = () => {
     let navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-
     const [data, signupdata] = useState({ name: "", email: "", password: "" , image : "" });
     // const [base64 , setbase64] = useState("") ; 
 
@@ -29,12 +29,28 @@ const Signup = () => {
 
 
         if (json.success) {
-            alert("signup Success");
-            navigate("/Login");
+            // alert("signup Success");
+            // navigate("/Login");
+            Swal.fire({
+                title: "Good Job !",
+                text: "You are Registered Successfully..",
+                icon: "success",
+                // confirmButtonText: "Try Again",
+              }).then(function () {
+                // Redirect the user
+                // window.location.href = "/new-page";
+                navigate("/Login") ;
+              });
+
         }
 
         else {
-            alert("failed")
+            Swal.fire({
+                title: "Some Error Occurred !",
+                text: "Minimum length of name and password is 2",
+                icon: "warning",
+                // confirmButtonText: "Try Again",
+              });
         }
     }
 
@@ -42,21 +58,6 @@ const Signup = () => {
         // eslint-disable-next-line
         signupdata({ ...data, [e.target.name]: e.target.value });
     }
-
-
-    // function uploadSingleImage(base64) {
-    //     // setLoading(true);
-    //     // axios
-    //     //   .post("http://localhost:5000/auth/signup", { image: base64 })
-    //     //   .then((res) => {
-    //     //     // setUrl(res.data);
-    //     //     alert("Image uploaded Succesfully");
-    //     //   })
-    //     //   .then(() => setLoading(false))
-    //     //   .catch(console.log);
-    //     setbase64(base64) ; 
-
-    //   }
 
     const convertBase64 = (file) => {
         return new Promise((resolve, reject) => {

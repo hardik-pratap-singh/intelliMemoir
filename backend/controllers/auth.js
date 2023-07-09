@@ -189,6 +189,32 @@ const getuser = async (req, res) => {
 
 }
 
+const updateuser = async (req , res) => {
+    const userid = req.user.id; 
+    const { name , email } = req.body ; 
+
+    try {
+        let user = await User.findById(userid).select('-password');
+        if(!user){
+            res.json({"error"  : "user not Found"}) ;
+        }
+
+        const updateuser = {};
+        if (name) { updateuser.name = name };
+        if (email) { updateuser.email = email; }
+
+        console.log(updateuser) ; 
+
+        user = await User.findByIdAndUpdate(userid, { $set: updateuser }, { new: true }) ; 
+        res.status(200).json({ "success": true, user });
+
+        
+    } catch (error) {
+        res.json({ "error": "update user backend issue" });
+    }
+
+}
 
 
-module.exports = { signup, login, getuser }; 
+
+module.exports = { signup, login, getuser , updateuser}; 
